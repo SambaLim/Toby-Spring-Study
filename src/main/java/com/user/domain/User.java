@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.user.domain;
 
 public class User {
 	String id;
