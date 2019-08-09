@@ -11,9 +11,9 @@ import com.user.domain.User;
 public class UserDao {
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection c = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/toby", "root", "rnd12345");
+				"jdbc:mysql://localhost:3306/toby?serverTimezone=UTC", "root", "rnd12345");
 		
 		PreparedStatement ps = c.prepareStatement(
 				"INSERT INTO users(id, name, password) values(?,?,?)");
@@ -30,9 +30,9 @@ public class UserDao {
 	
 	public User get(String id) throws ClassNotFoundException, SQLException {
 		
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection c = DriverManager.getConnection(
-				"jdbc:mysql://localhost:3306/toby", "root", "rnd12345");
+				"jdbc:mysql://localhost:3306/toby?serverTimezone=UTC", "root", "rnd12345");
 		
 		PreparedStatement ps = c.prepareStatement(
 				"SELECT * FROM USERS WHERE id = ?");
