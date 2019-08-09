@@ -3,6 +3,7 @@ package com.user.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.user.domain.User;
@@ -27,8 +28,29 @@ public class UserDao {
 		
 	}
 	
-	public User get(String Id) {
+	public User get(String id) throws ClassNotFoundException, SQLException {
 		
-		return null;
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection c = DriverManager.getConnection(
+				"jdbc:mysql://localhost:3306/toby", "root", "rnd12345");
+		
+		PreparedStatement ps = c.prepareStatement(
+				"SELECT * FROM USERS WHERE id = ?");
+		
+		ps.setString(1, id);
+		
+		ResultSet rs = ps.executeQuery();
+		rs.next();
+		
+		User user = new User();
+		user.setId(rs.getString("id"));
+		user.setName(rs.getString("name"));
+		user.setPassword(rs.getString("password"));
+		
+		rs.close();
+		ps.close();
+		c.close();
+		
+		return user;
 	}
 }
