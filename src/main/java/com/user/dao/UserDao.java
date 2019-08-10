@@ -10,13 +10,15 @@ import com.user.domain.User;
 
 public abstract class UserDao {
 	
-	private SimpleConnectionMaker simpleConnectionMaker;
+	private ConnectionMaker connectionMaker;
+	
+	public UserDao() {
+		connectionMaker = new DConnectionMaker();
+	}
 	
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		
-		simpleConnectionMaker = new SimpleConnectionMaker();
-		
-		Connection c = simpleConnectionMaker.getConnection();
+		Connection c = connectionMaker.makeConnection();
 		
 		PreparedStatement ps = c.prepareStatement(
 				"INSERT INTO users(id, name, password) values(?,?,?)");
@@ -33,9 +35,7 @@ public abstract class UserDao {
 	
 	public User get(String id) throws ClassNotFoundException, SQLException {
 		
-		simpleConnectionMaker = new SimpleConnectionMaker();
-		
-		Connection c = simpleConnectionMaker.getConnection();
+		Connection c = connectionMaker.makeConnection();
 		
 		PreparedStatement ps = c.prepareStatement(
 				"SELECT * FROM USERS WHERE id = ?");
