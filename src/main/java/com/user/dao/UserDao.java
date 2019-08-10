@@ -9,9 +9,14 @@ import java.sql.SQLException;
 import com.user.domain.User;
 
 public abstract class UserDao {
+	
+	private SimpleConnectionMaker simpleConnectionMaker;
+	
 	public void add(User user) throws ClassNotFoundException, SQLException {
 		
-		Connection c = getConnection();
+		simpleConnectionMaker = new SimpleConnectionMaker();
+		
+		Connection c = simpleConnectionMaker.getConnection();
 		
 		PreparedStatement ps = c.prepareStatement(
 				"INSERT INTO users(id, name, password) values(?,?,?)");
@@ -28,7 +33,9 @@ public abstract class UserDao {
 	
 	public User get(String id) throws ClassNotFoundException, SQLException {
 		
-		Connection c = getConnection();
+		simpleConnectionMaker = new SimpleConnectionMaker();
+		
+		Connection c = simpleConnectionMaker.getConnection();
 		
 		PreparedStatement ps = c.prepareStatement(
 				"SELECT * FROM USERS WHERE id = ?");
