@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.user.dao.NUserDao;
 import com.user.dao.UserDao;
 import com.user.domain.User;
 
@@ -13,7 +14,8 @@ public class DemoApplication {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
-		UserDao dao = new UserDao();
+		// 임시 NUserDao
+		UserDao dao = new NUserDao();
 		
 		User user = new User();
 		user.setId("samba");
