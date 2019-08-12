@@ -15,20 +15,15 @@ import com.user.domain.User;
 public class DemoApplication {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-
 		
-		DaoFactory factory = new DaoFactory();
+		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 		
-		UserDao dao1 = factory.userDao();
-		UserDao dao2 = factory.userDao();
+		UserDao dao3 = context.getBean("userDao", UserDao.class);
+		UserDao dao4 = context.getBean("userDao", UserDao.class);
 		
-		System.out.println(dao1);
-		System.out.println(dao2);
-		
-//		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-//		
-//		UserDao dao = context.getBean("userDao", UserDao.class);
-//		  
+		System.out.println(dao3);
+		System.out.println(dao4);
+		  
 //		User user = new User(); 
 //		user.setId("samba"); user.setName("삼바");
 //		user.setPassword("wavuslim");
@@ -41,7 +36,7 @@ public class DemoApplication {
 //		System.out.println(user2.getPassword());
 //		  
 //		System.out.println(user2.getId() + "조회 성공");
-		
+//		
 	}
 
 }
