@@ -3,6 +3,8 @@ package com.example.demo;
 import java.sql.SQLException;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.user.dao.ConnectionMaker;
 import com.user.dao.DConnectionMaker;
@@ -10,14 +12,13 @@ import com.user.dao.DaoFactory;
 import com.user.dao.UserDao;
 import com.user.domain.User;
 
-@SpringBootApplication
 public class DemoApplication {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
-		// SpringApplication.run(DemoApplication.class, args);
+		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 		
-		UserDao dao = new DaoFactory().userDao();
+		UserDao dao = context.getBean("userDao", UserDao.class);
 		  
 		User user = new User(); 
 		user.setId("samba"); user.setName("삼바");
