@@ -15,23 +15,32 @@ import com.user.domain.User;
 public class DemoApplication {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
 		
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		DaoFactory factory = new DaoFactory();
 		
-		UserDao dao = context.getBean("userDao", UserDao.class);
-		  
-		User user = new User(); 
-		user.setId("samba"); user.setName("삼바");
-		user.setPassword("wavuslim");
-		  
-		dao.add(user);
-		  
-		System.out.println(user.getId() + "등록 성공");
-		  
-		User user2 = dao.get(user.getId()); System.out.println(user2.getName());
-		System.out.println(user2.getPassword());
-		  
-		System.out.println(user2.getId() + "조회 성공");
+		UserDao dao1 = factory.userDao();
+		UserDao dao2 = factory.userDao();
+		
+		System.out.println(dao1);
+		System.out.println(dao2);
+		
+//		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+//		
+//		UserDao dao = context.getBean("userDao", UserDao.class);
+//		  
+//		User user = new User(); 
+//		user.setId("samba"); user.setName("삼바");
+//		user.setPassword("wavuslim");
+//		  
+//		dao.add(user);
+//		  
+//		System.out.println(user.getId() + "등록 성공");
+//		  
+//		User user2 = dao.get(user.getId()); System.out.println(user2.getName());
+//		System.out.println(user2.getPassword());
+//		  
+//		System.out.println(user2.getId() + "조회 성공");
 		
 	}
 
