@@ -21,7 +21,7 @@ public class DemoApplication {
 		
 		UserDao dao = context.getBean("userDao", UserDao.class);
 
-		CountingConnectionMaker ccm = context.getBean("connectionmaker", CountingConnectionMaker.class);
+		CountingConnectionMaker ccm = context.getBean("connectionMaker", CountingConnectionMaker.class);
 		
 		System.out.println("Connection counter: " + ccm.getCounter());
 		  
