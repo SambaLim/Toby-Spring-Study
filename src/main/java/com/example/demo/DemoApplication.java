@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.user.dao.ConnectionMaker;
+import com.user.dao.CountingConnectionMaker;
 import com.user.dao.DConnectionMaker;
 import com.user.dao.DaoFactory;
 import com.user.dao.UserDao;
@@ -18,11 +19,11 @@ public class DemoApplication {
 		
 		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
 		
-		UserDao dao3 = context.getBean("userDao", UserDao.class);
-		UserDao dao4 = context.getBean("userDao", UserDao.class);
+		UserDao dao = context.getBean("userDao", UserDao.class);
+
+		CountingConnectionMaker ccm = context.getBean("connectionmaker", CountingConnectionMaker.class);
 		
-		System.out.println(dao3);
-		System.out.println(dao4);
+		System.out.println("Connection counter: " + ccm.getCounter());
 		  
 //		User user = new User(); 
 //		user.setId("samba"); user.setName("삼바");
