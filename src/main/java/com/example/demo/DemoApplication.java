@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.sql.SQLException;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -47,7 +48,14 @@ public class DemoApplication {
 		System.out.println(user2.getName());
 		System.out.println(user2.getPassword());
 		  
-		System.out.println(user2.getId() + "조회 성공");	
+		System.out.println(user2.getId() + "조회 성공");
+	}
+	
+	@Test
+	public void addAndGet() {
+		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		
+		UserDao dao = context.getBean("userDao", UserDao.class);
 	}
 
 }
