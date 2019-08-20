@@ -21,11 +21,16 @@ public class UserDaoTest {
 		UserDao dao = context.getBean("userDao", UserDao.class);
 		User user = new User();
 		
+		dao.deleteAll();
+		assertThat(dao.getCount(), is(0));
+		
 		user.setId("amazing");
 		user.setName("임성호");
 		user.setPassword("lim");
 		
 		dao.add(user);
+		
+		assertThat(dao.getCount(), is(1));
 		
 		User user2 = dao.get(user.getId());
 		
