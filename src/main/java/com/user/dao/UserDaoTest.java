@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import java.sql.SQLException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,14 +15,23 @@ import com.user.domain.User;
 
 public class UserDaoTest {
 	
+	private UserDao dao;
+	private User user1;
+	private User user2;
+	private User user3;
+	
+	@Before
+	public void setUp() {
+		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		this.dao = context.getBean("userDao", UserDao.class);
+		
+		this.user1 = new User("samba", "임성호", "lim");
+		this.user2 = new User("sound", "이소리", "lee");
+		this.user3 = new User("amazing", "킹", "king");
+	}
+	
 	@Test
 	public void addAndGet() throws ClassNotFoundException, SQLException {
-		
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-		
-		UserDao dao = context.getBean("userDao", UserDao.class);
-		User user1 = new User("samba", "임성호", "lim");
-		User user2 = new User("sound", "이소리", "lee");
 		
 		dao.deleteAll();
 		assertThat(dao.getCount(), is(0));
@@ -43,13 +53,6 @@ public class UserDaoTest {
 	
 	@Test
 	public void count() throws SQLException, ClassNotFoundException {
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-		
-		UserDao dao = context.getBean("userDao", UserDao.class);
-		
-		User user1 = new User("samba", "임성호", "lim");
-		User user2 = new User("sound", "이소리", "lee");
-		User user3 = new User("amazing", "킹", "king");
 		
 		dao.deleteAll();
 		assertThat(dao.getCount(), is(0));
@@ -66,9 +69,7 @@ public class UserDaoTest {
 	
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void getUserFailure() throws SQLException, ClassNotFoundException {
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-		
-		UserDao dao = context.getBean("userDao", UserDao.class);
+
 		dao.deleteAll();
 		assertThat(dao.getCount(), is(0));
 		
