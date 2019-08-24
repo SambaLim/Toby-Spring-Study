@@ -2,15 +2,7 @@ package com.example.demo;
 
 import java.sql.SQLException;
 
-import org.junit.jupiter.api.Test;
 import org.junit.runner.JUnitCore;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.user.dao.CountingConnectionMaker;
-import com.user.dao.DaoFactory;
-import com.user.dao.UserDao;
-import com.user.domain.User;
 
 public class DemoApplication {
 
