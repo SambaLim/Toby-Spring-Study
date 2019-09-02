@@ -8,9 +8,12 @@ import java.sql.SQLException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.user.dao.DaoFactory;
@@ -18,21 +21,32 @@ import com.user.dao.UserDao;
 import com.user.domain.User;
 
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes= {DaoFactory.class})
+@DirtiesContext
 public class DemoApplicationTests {
-
+	
+	@Autowired
+	private ApplicationContext context;
+	
+	@Autowired
 	private UserDao dao;
+	
 	private User user1;
 	private User user2;
 	private User user3;
 	
 	@Before
 	public void setUp() {
-		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
-		this.dao = context.getBean("userDao", UserDao.class);
+		
+		this.context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		
+		System.out.println(this.context);
+		System.out.println(this);
 		
 		this.user1 = new User("samba", "임성호", "lim");
 		this.user2 = new User("sound", "이소리", "lee");
 		this.user3 = new User("amazing", "킹", "king");
+		
 	}
 	
 	@Test
